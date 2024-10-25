@@ -5,7 +5,7 @@ pipeline AirportPipeline {
 
     AirportTextFileInterpreter
         -> AirportCSVInterpreter
-        -> NameHeaderWriter
+        // -> NameHeaderWriter
         -> AirportTableInterpreter
         -> AirportLoader;
 
@@ -19,13 +19,13 @@ pipeline AirportPipeline {
         delimiter: ';';
     }
 
-    block NameHeaderWriter oftype CellWriter{
-        at: cell A1;
+    // block NameHeaderWriter oftype CellWriter{
+    //     at: cell A1;
 
-        write: [
-            "test"
-        ];
-    }
+    //     write: [
+    //         "test"
+    //     ];
+    // }
 
     block AirportTableInterpreter oftype TableInterpreter{
         header: true;
