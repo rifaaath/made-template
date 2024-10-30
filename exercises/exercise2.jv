@@ -36,7 +36,7 @@ pipeline TreesPipeline{
     }
 
     constraint TreesValid on text:
-        value == "Vogelsang";
+        value == "Vogelsang" or value == "Vogelsang Bols-Siedlung";
 
     block TreesLoader oftype SQLiteLoader{
         table: "trees";
