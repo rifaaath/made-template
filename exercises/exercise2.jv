@@ -1,0 +1,46 @@
+pipeline TreesPipeline{
+    TreesExtractor ->
+        TreesTextFileInterpreter;
+
+    TreesTextFileInterpreter
+        ->TreesCSVInterpreter
+        ->TreesTableInterpreter
+        // ->TreesFilter
+        ->TreesLoader;
+
+    block TreesExtractor oftype LocalFileExtractor  {
+        filePath:
+         "./exercises/stadt-neuss-herbstpflanzung-2023.csv";
+    }
+
+    block TreesTextFileInterpreter oftype TextFileInterpreter {}
+
+    block TreesCSVInterpreter oftype CSVInterpreter {
+        delimiter: ';';
+    }
+
+    block TreesTableInterpreter oftype TableInterpreter {
+        header: true;
+        columns: [
+            "lfd_nr" oftype integer,
+            "stadtteil" oftype stadtteil,
+            "standort" oftype text,
+            "baumart_botanisch" oftype text,
+            "id" oftype text,
+            "baumfamilie" oftype text
+        ];
+    }
+    
+    valuetype stadtteil oftype text{
+        constraints: [TreesValid];
+    }
+
+    constraint TreesValid on text:
+        value == "Vogelsang";
+
+    block TreesLoader oftype SQLiteLoader{
+        table: "trees";
+        file: "./trees.sqlite";
+    }
+
+}
