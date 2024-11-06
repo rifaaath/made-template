@@ -29,7 +29,7 @@ This is an education statistics dataset for many countries that includes total e
 
 ### Datasource2: World Bank Open Data - Economic Indicators
 * Metadata URL: https://data.worldbank.org/indicator/NY.GDP.PCAP.CD
-* Data URL: https://databank.worldbank.org/source/world-development-indicators
+* Data URL: https://api.worldbank.org/v2/en/indicator/NY.GDP.PCAP.CD?downloadformat=csv
 * Data Type: CSV
 
 This dataset includes a wide range of economic indicators, such as GDP per capita, income levels, and employment rates for countries globally. It will help measure economic outcomes and mobility indicators across countries in North, Central, and South America, allowing for analysis in relation to education data.
