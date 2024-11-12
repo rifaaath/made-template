@@ -38,7 +38,10 @@ This dataset includes a wide range of economic indicators, such as GDP per capit
 
 <!-- List of work packages ordered sequentially, each pointing to an issue with more details. -->
 
-1. Example Issue [#1][i1]
-2. ...
+1. **Download Education Data** [#1][i1]
+2. **Download Economy Data** [#2][i2]
+3. **Combine Data and Filter to Americas** [#3][i3]
 
-[i1]: https://github.com/jvalue/made-template/issues/1
+[i1]: https://github.com/rifaaath/made-template/issues/1
+[i2]: https://github.com/rifaaath/made-template/issues/2
+[i3]: https://github.com/rifaaath/made-template/issues/3
