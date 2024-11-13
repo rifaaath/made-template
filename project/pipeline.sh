@@ -1,5 +1,5 @@
 #!/bin/bash
-# Run chmod +x project/pipeline.sh initially
+# Run chmod +x project/pipeline.sh
 
 # Install dependencies
 pip3 install pandas numpy requests
