@@ -1,0 +1,79 @@
+pipeline CountryPipeline {
+    CountryExtractor 
+        ->CountryXLSXInterpreter
+        ->CountrySheetPicker
+        ->CountryHeaderWriter
+        ->CountryRangeSelector;
+
+    CountryRangeSelector
+        ->CountryTableOne
+        ->CountryLoaderOne;
+    CountryRangeSelector
+        ->CountryTableTwo
+        ->CountryLoaderTwo;
+
+    block CountryExtractor oftype HttpExtractor {
+        url: "https://thedocs.worldbank.org/en/doc/7d852628d96b9411d43e5d36d5dff941-0050062022/original/Graphs-Chapter-5-02082022.xlsx";
+    }
+    
+    block CountryXLSXInterpreter oftype XLSXInterpreter {}
+
+    block CountrySheetPicker oftype SheetPicker {
+        sheetName: "Figure S5.1.2";
+    }
+
+    block CountryHeaderWriter oftype CellWriter {
+        at: range P2:S2;
+        write: ["Country Code", "Economy", "GDP per Capita", "Bond Issuance Share"];
+    }
+
+    block CountryRangeSelector oftype CellRangeSelector {
+        select: range P2:S45;
+    }
+
+    block CountryTableOne oftype TableInterpreter {
+        header: true;
+        columns: [
+            "Country Code" oftype CountryCodeAlpha3,
+            "Bond Issuance Share" oftype bdi
+        ];
+    }
+    block CountryTableTwo oftype TableInterpreter {
+        header: true;
+        columns: [
+            "Country Code" oftype CountryCodeAlpha3,
+            "GDP per Capita" oftype gdp
+        ];
+    }
+
+    // valuetype cc oftype text{
+    //     constraints: [validCountry];
+    // }
+    // constraint validCountry on CountryCodeAlpha3:
+    //     value = CountryCodeAlpha3;
+
+    valuetype gdp oftype decimal{
+        constraints: [validGDP];
+    }
+    constraint validGDP on decimal:
+        value > 0;
+
+    valuetype bdi oftype decimal{
+        constraints: [validBDI];
+    }
+    constraint validBDI on decimal:
+        value >= 0 and value <= 1;
+
+    block CountryLoaderOne oftype SQLiteLoader{
+        table:"bondIssuance";
+        file: "country-stats.sqlite";
+    }
+
+    block CountryLoaderTwo oftype SQLiteLoader{
+        table:"gdpPerCapita";
+        file: "country-stats.sqlite";
+    }
+
+
+    
+}
