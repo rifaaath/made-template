@@ -3,3 +3,5 @@
 !/data/.gitkeep
 *.sqlite
 .conda
+project/data-report.docx
+project/~$ta-report.docx
