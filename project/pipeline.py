@@ -92,5 +92,5 @@ data_url = [
 
 pipeline(data_url[0], "data1")
 pipeline(data_url[1], "data2")
-combine_file(["data1", "data2"])
+# combine_file(["data1", "data2"])
 
