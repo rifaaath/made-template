@@ -1,0 +1,86 @@
+pipeline TemperaturePipeline {
+    TempExtractor ->
+        TempZIPInterpreter;
+    
+    TempZIPInterpreter
+        ->TempCSVPicker
+        -> TempFileInterpreter
+        -> TempCSVInterpreter
+        -> TempHeaderWriter
+        -> TempTableInterpreter
+        -> TempConverter1
+        -> TempConverter2
+        -> TempLoader;
+
+    
+    block TempExtractor oftype LocalFileExtractor{
+        filePath: "mowesta-dataset-20221107.zip";
+    }
+
+    block TempZIPInterpreter oftype ArchiveInterpreter {
+        archiveType: "zip";
+    }
+
+    block TempCSVPicker oftype FilePicker{
+        path: "data.csv";
+    }
+
+    block TempFileInterpreter oftype TextFileInterpreter{}
+
+    block TempCSVInterpreter oftype CSVInterpreter{
+        delimiter: ";";
+    }
+
+    block TempHeaderWriter oftype CellWriter {
+        at: range A1:F1;
+        write: ["id", "producer", "model", "month", "temperature", "battery_temperature"];
+    }
+
+    block TempTableInterpreter oftype TableInterpreter {
+        header: true;
+        columns: [
+            "Geraet" oftype id,
+            "Hersteller" oftype text,
+            "Model" oftype text,
+            "Monat" oftype integer,
+            "Temperatur in °C (DWD)" oftype integer,
+            "Batterietemperatur in °C" oftype integer
+        ];
+    }
+
+    
+    transform CelsiusToFahrenheit {
+        from Celsius oftype decimal;
+        to Fahrenheit oftype decimal;
+
+        Fahrenheit: (Celsius * 9/5) + 32;
+    }
+
+    block TempConverter1 oftype TableTransformer {
+        inputColumns: ['temperature'];
+        outputColumn: 'temperature';
+        uses: CelsiusToFahrenheit;
+    }
+
+    block TempConverter2 oftype TableTransformer {
+        inputColumns: ['battery_temperature'];
+        outputColumn: 'battery_temperature';
+        uses: CelsiusToFahrenheit;
+    }
+
+    valuetype id oftype integer{
+        constraints: [valid_id];
+    }
+    constraint valid_id on integer:
+        value>0;
+
+    block TempLoader oftype SQLiteLoader {
+        table: "temperatures";
+        file: "temperatures.sqlite";
+    }
+
+
+
+
+
+}
