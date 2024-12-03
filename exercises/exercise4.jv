@@ -51,7 +51,6 @@ pipeline TemperaturePipeline {
         ];
     }
 
-    
     transform CelsiusToFahrenheit {
         from Celsius oftype decimal;
         to Fahrenheit oftype decimal;
