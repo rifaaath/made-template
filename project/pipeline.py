@@ -18,7 +18,7 @@ def download_data(url, filename):
         data = get_path(filename, "zip")
         with open(data, "wb") as f:
             f.write(response.content)
-        print("Zip File saved")
+        # print("Zip File saved")
 
     except Exception as e:
         print(e)
@@ -53,29 +53,29 @@ def clean_data(filename):
         df.loc[:, [str(i) for i in range(1970, 2024)]] = df.loc[:, [str(i) for i in range(1970, 2024)]].fillna(df.loc[:, [str(i) for i in range(1970, 2024)]].mean())
         
         df.to_csv(csv_dir)
-        print("Data extracted")
+        # print("Data extracted")
 
     except Exception as e:
         print("Exception raised\n\n",e)
 
-def combine_file(filenames):
-    df = []
-    try:
-        for filename in filenames:
-            file = get_path(filename, "csv")
-            df.append(pd.read_csv(file))
+# def combine_file(filenames):
+#     df = []
+#     try:
+#         for filename in filenames:
+#             file = get_path(filename, "csv")
+#             df.append(pd.read_csv(file))
         
-        combined_df = df[0]
-        for df in df[1:]:
-            combined_df = pd.merge(combined_df, df, on="Country Name", how="inner", suffixes=('', '_other'))
+#         combined_df = df[0]
+#         for df in df[1:]:
+#             combined_df = pd.merge(combined_df, df, on="Country Name", how="inner", suffixes=('', '_other'))
 
-        combined_file_path = get_path("combined_data", "csv")
-        combined_df.to_csv(combined_file_path, index=False)
-        print(f"Combined file saved at {combined_file_path}")
+#         combined_file_path = get_path("combined_data", "csv")
+#         combined_df.to_csv(combined_file_path, index=False)
+#         print(f"Combined file saved at {combined_file_path}")
         
     
-    except Exception as e:
-        print("Exception raised\n\n",e)
+#     except Exception as e:
+#         print("Exception raised\n\n",e)
 
 
 def pipeline(url, filename):
@@ -89,8 +89,7 @@ data_url = [
     "https://api.worldbank.org/v2/en/indicator/SE.PRM.ENRR?downloadformat=csv",
     "https://api.worldbank.org/v2/en/indicator/NY.GDP.PCAP.CD?downloadformat=csv",
 ]
-
-pipeline(data_url[0], "data1")
-pipeline(data_url[1], "data2")
+if __name__ == '__main__':
+    pipeline(data_url[0], "data1")
+    pipeline(data_url[1], "data2")
 # combine_file(["data1", "data2"])
-
