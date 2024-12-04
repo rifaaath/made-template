@@ -92,4 +92,4 @@ data_url = [
 if __name__ == '__main__':
     pipeline(data_url[0], "data1")
     pipeline(data_url[1], "data2")
-# combine_file(["data1", "data2"])
+# combine_file(["data1", "data2"]) 
