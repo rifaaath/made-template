@@ -2,6 +2,6 @@
 # Run unit and system tests
 pip3 install tabulate
 
-echo "Run unit tests"
+echo "Running unit tests.."
 python3 project/tests.py 
 
