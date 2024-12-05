@@ -42,14 +42,26 @@ pipeline TemperaturePipeline {
     block TempTableInterpreter oftype TableInterpreter {
         header: true;
         columns: [
-            "id" oftype id,
+            "id" oftype valid_id,
             "producer" oftype text,
             "model" oftype text,
-            "month" oftype integer,
+            "month" oftype valid_month,
             "temperature" oftype decimal,
             "battery_temperature" oftype decimal
         ];
     }
+
+    valuetype valid_id oftype integer{
+        constraints: [constraint_id];
+    }
+    constraint constraint_id on integer:
+        value>0;
+
+    valuetype valid_month oftype integer{
+        constraints: [constraint_month];
+    }
+    constraint constraint_month on integer:
+        value >0 and value <13;
 
     transform CelsiusToFahrenheit {
         from Celsius oftype decimal;
@@ -69,12 +81,6 @@ pipeline TemperaturePipeline {
         outputColumn: 'battery_temperature';
         uses: CelsiusToFahrenheit;
     }
-
-    valuetype id oftype integer{
-        constraints: [valid_id];
-    }
-    constraint valid_id on integer:
-        value>0;
 
     block TempLoader oftype SQLiteLoader {
         table: "temperatures";
