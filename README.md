@@ -4,16 +4,17 @@ This project investigates the relationship between educational access, as measur
 
 ## Project Description
 
-The core objective is to determine if there is a correlation between a country's average primary school enrollment rate and its average GDP per capita over the specified time period. The project employs an automated ETL (Extract, Transform, Load) pipeline, data visualization, and statistical analysis to explore this relationship.
+The core objective is to determine if there is a correlation between a average primary school enrollment rate and its average GDP per capita. The project employs an automated ETL pipeline, data visualization, and statistical analysis to explore the relationship.
 
 ## Data Sources
 
 The analysis is based on two datasets from the World Bank Open Data:
 
-1.  **Primary School Enrollment (% gross)**: Data on gross primary school enrollment rates for countries in the Americas from 1970-2023.
-2.  **GDP per capita (current US$)**: Data on GDP per capita, measured in current US dollars for countries in the Americas from 1960-2023.
+1.  **Primary School Enrollment (% gross)**: Data on gross primary school enrollment rates for countries in the Americas from 1970-2023. URL: https://databank.worldbank.org/reports.aspx?source=2&type=metadata&series=SE.PRM.ENRR
+2.  **GDP per capita (current US$)**: Data on GDP per capita, measured in current US dollars for countries in the Americas from 1960-2023. URL: https://databank.worldbank.org/reports.aspx?source=2&type=metadata&series=NY.GDP.PCAP.CD
 
-These datasets are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) license. Proper attribution to the World Bank is included in the report.
+These datasets are licensed under the CC BY 4.0 license. 
+Proper attribution to the World Bank is included in the report.
 
 ## Project Structure
 
@@ -58,7 +59,7 @@ The project repository contains the following files and directories:
 
 ## Findings
 
-The analysis shows a very weak negative correlation between primary school enrollment rates and GDP per capita in the Americas over the studied period. The details of the analysis and results are described in the generated PDF report.
+The analysis shows a very weak negative correlation between primary school enrollment rates and GDP per capita in the Americas. The details of the analysis and results are described in the generated PDF report.
 
 ## Further Research
 
