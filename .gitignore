@@ -9,3 +9,5 @@ exercises/mowesta-dataset-20221107.zip
 */tempCodeRunnerFile.py
 *.pyc
 *.docx
+*.mov
+*.pptx
